@@ -1,0 +1,11 @@
+.app-footer {
+    background: rgb(189 39 39 / 6%);
+    text-align: right;
+    padding: 1em;
+}
+
+.app-footer__message {
+    color: #2e2216;
+    font-weight: bold;
+    font-family: sans-serif;
+}

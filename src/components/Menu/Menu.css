@@ -1,0 +1,25 @@
+.app-menu__list {
+    display: flex;
+}
+
+.app-menu__item {
+    list-style: none;
+}
+
+.app-menu__link {
+    text-decoration: none;
+    margin-right: 12px
+}
+
+.app-menu__button{
+    background: rgb(43 32 21 / 83%) !important;
+    color: white !important;
+}
+
+.app-menu__button:hover {
+    font-weight: bold !important;
+}
+
+.app-menu-group {
+    margin-left: 100px;
+}

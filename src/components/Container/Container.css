@@ -1,0 +1,9 @@
+.app-container {
+    font-family: sans-serif;
+    height: calc(100vh - 34px - 50px - 64px);
+    padding: 1rem;
+    min-height:  825px;
+    max-height:  825px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
