@@ -1,50 +1,71 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import ImageIcon from '@material-ui/icons/Check';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
+import PaginationComponents from './PaginationTable';
 
-export default class ApiTest extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            items: []
-        };
-    }
+var state = {
+    error: null,
+    isLoaded: false,
+    items: []
+};
+
+class TableApi extends React.Component {
+    constructor() {
+        super();
+        this.state = { postId: ""};
+
+        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    };
+
+    handleChange(event) {
+        this.setState({ postId: event.target.value });
+        this.componentDidMount();
+    };
+
+    forceUpdateHandler() {
+        this.forceUpdate();
+    };
 
     componentDidMount() {
-        fetch("https://jsonplaceholder.typicode.com/comments?postId=1")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: result
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error: { message: "Houve um erro!" }
-                    });
-                }
-            )
+        this.timeout = setTimeout(() => {
+            state.isLoaded = false;
+            var url = "https://jsonplaceholder.typicode.com/comments";
+
+            if(this.state.postId.length > 0)
+               url += "?postId=" + this.state.postId;
+            
+            fetch(url)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        state = {
+                            error: null,
+                            isLoaded: true,
+                            items: result
+                        };
+
+                        this.forceUpdateHandler();
+                    },
+                    (error) => {
+                        state = {
+                            error: error,
+                            isLoaded: true,
+                            items: []
+                        };
+                    }
+                )
+        }, 300);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
-
+        const { error, isLoaded, items } = state;
         const classes = makeStyles((theme) => ({
             root: {
                 maxWidth: 345,
@@ -57,6 +78,7 @@ export default class ApiTest extends React.Component {
             },
         }));
 
+
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -67,36 +89,18 @@ export default class ApiTest extends React.Component {
             );
         } else {
             return (
-                <Container maxWidth="md">
-                    {items.map(item => (
-                        <Container maxWidth="md">
-                            <Card className={classes.root}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="/static/images/cards/contemplative-reptile.jpg"
-                                        title="Testes GET"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            {item.email}
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            {item.body}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Button size="small" color="primary">
-                                        <ImageIcon /> Marcar como lido
-                                </Button>
-                                </CardActions>
-                            </Card>
-                            <Divider variant="fullWidth" component="br" />
-                        </Container>
-                    ))}
-                </Container>
+                <React.Fragment>
+                    <form noValidate autoComplete="off">
+                        <TextField label="N° do Post" variant="outlined" value={this.state.value} onChange={this.handleChange} />
+                    </form>
+
+                    <br />
+                    <PaginationComponents items={items} />
+                </React.Fragment>
             );
         }
     }
+
 }
+
+export default TableApi;
