@@ -5,7 +5,7 @@ import Charts from '../components/Charts/Charts'
 
 const IndexApp = () => (
     <App>
-        <h1>About</h1>
+        <h1>Gráficos</h1>
         <br />
         <Charts />
     </App>
