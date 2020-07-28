@@ -8,7 +8,9 @@
 
 .app-menu__link {
     text-decoration: none;
-    margin-right: 12px
+    font-weight: bold;
+    margin-right: 12px;
+    color: black;
 }
 
 .app-menu__button{

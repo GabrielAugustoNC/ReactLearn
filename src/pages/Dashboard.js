@@ -5,7 +5,6 @@ import Dashboard from '../components/Dashboard/Dashboard'
 
 const IndexApp = () => (
     <App>
-        <h1>Dashboard</h1>
         <br />
         <Dashboard />
     </App>

@@ -5,7 +5,6 @@ import ApiTest from '../components/APIs/ApiTest'
 
 const IndexApp = () => (
     <App>
-        <h1>Página Inicial</h1>
         <br />
         <ApiTest />
     </App>

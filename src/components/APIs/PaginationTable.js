@@ -29,7 +29,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const App = props => {
-    debugger
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);

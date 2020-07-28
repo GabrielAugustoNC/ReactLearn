@@ -5,7 +5,6 @@ import FormLogin from '../components/Login/FormLogin'
 
 const IndexApp = () => (
     <App>
-        <h1>Cadastro de Usuário</h1>
         <br />
         <FormLogin />
     </App>

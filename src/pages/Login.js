@@ -5,7 +5,6 @@ import Login from '../components/Login/Login'
 
 const IndexApp = () => (
     <App>
-        <h1>Login de Usuário</h1>
         <br />
         <Login />
     </App>
